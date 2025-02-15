@@ -3,7 +3,7 @@ from flask import (
     Flask, flash, render_template, 
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
-from bson.objectid import objectId
+from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
 
@@ -17,10 +17,10 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 @app.route("/")
-@app.route("/get_genres")
+@app.route("/get_books")
 def get_genres():
-    genres = mongo.db.genres.find()
-    return render_template("genres.html", genres=genres)
+    books = mongo.db.books.find()
+    return render_template("books.html", books=books)
 
 
 if __name__ == "__main__":
