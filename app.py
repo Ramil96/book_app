@@ -17,11 +17,18 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+
 @app.route("/")
 @app.route("/add_books")
 def add_books():
     books = mongo.db.books.find()
     return render_template("books.html", books=books)
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    return render_template("register.html")
+
 
 
 if __name__ == "__main__":
