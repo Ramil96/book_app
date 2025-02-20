@@ -1,4 +1,5 @@
 $(document).ready(function(){
     $('.sidenav').sidenav({edge: "right"});
-    $('.modal').modal();
+    $('.collapsible').collapsible();
+    $('.tooltipped').tooltip();
   });
