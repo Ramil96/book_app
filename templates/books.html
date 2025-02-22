@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h3 class="purple-text text-darken-4 center-align">All Books</h3>
+
 <ul class="collapsible">
   {% for book in books %}
   <li>
     <div class="collapsible-header white-text purple darken-4 text-shadow">
       <i class="fas fa-caret-down"></i>
       <strong>{{ book.book_name }}</strong> : {{ book.publish_date }}
-      {% if book.is_urgent == "on" %}
+      {% if book.is_trending == "on" %}
       <i class="fas fa-exclamation-circle purple-text text-lighten-2 tooltipped" 
       data-position="right" data-tooltip="Trending"></i>
       {% endif %}
@@ -15,6 +17,7 @@
     <div class="collapsible-body">
       <strong>{{ book.book_genre }}</strong>
       <p>{{ book.book_description }}</p>
+      <p><em>added by: {{book.created_by}} </em></p>
     </div>
   </li>
   {% endfor %}
