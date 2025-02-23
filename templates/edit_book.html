@@ -11,9 +11,13 @@
       <div class="input-field col s12">
         <i class="fas fa-folder-open prefix purple-text text-darken-4"></i>
         <select id="book_genre" name="book_genre" class="validate" required>
-          <option value="" disabled selected>Choose Genre</option>
+          <option value="" disabled>Choose Genre</option>
           {% for genre in genres %}
+          {% if genre.book_genre == book.book_genre %}
+          <option value="{{ genre.book_genre }}" selected>{{ genre.book_genre }}</option>
+          {% else %}
           <option value="{{ genre.book_genre }}">{{ genre.book_genre }}</option>
+          {% endif %}
           {% endfor %}
         </select>
         <label for="book_genre">Genre</label>
@@ -23,7 +27,7 @@
     <div class="row">
       <div class="input-field col s12">
         <i class="fa-solid fa-book prefix purple-text text-darken-4"></i>
-        <input id="book_name" name="book_name" minlength="5" maxlength="50" type="text" class="validate" required>
+        <input id="book_name" name="book_name" minlength="5" maxlength="50" value="{{book.book_name}}" type="text" class="validate" required>
         <label for="book_name">Book Name</label>
       </div>
     </div>
@@ -31,8 +35,9 @@
     <div class="row">
       <div class="input-field col s12">
         <i class="fa-solid fa-book-open prefix purple-text text-darken-4"></i>
-        <textarea id="book_description" name="book_description" minlength="5" maxlength="50"
-          class="materialize-textarea validate" required></textarea>
+        <textarea id="book_description" name="book_description" minlength="5" maxlength="50"class="materialize-textarea validate" required>
+        {{- book.book_description -}}
+        </textarea>
         <label for="book_description">Book Description</label>
       </div>
     </div>
@@ -40,7 +45,7 @@
     <div class="row">
       <div class="input-field col s12">
         <i class="fas fa-calendar-alt prefix purple-text text-darken-4"></i>
-        <input id="publish_date" name="publish_date" type="text" class="datepicker validate" required>
+        <input id="publish_date" name="publish_date" type="text" value="{{ book.publish_date}}" class="datepicker validate" required>
         <label for="publish_date">Publish date</label>
       </div>
     </div>
@@ -50,7 +55,11 @@
         <div class="switch">
           <i class="fa-solid fa-exclamation-circle prefix purple-text text-darken-4"></i>
           <label for="is_trending">
+            {% if book.is_trending == "on" %}
+            <input type="checkbox" id="is_trending" name="is_trending" checked>
+            {% else %}
             <input type="checkbox" id="is_trending" name="is_trending">
+            {% endif %}
             <span class="lever"></span>
             Is Trending
           </label>
@@ -60,6 +69,8 @@
     <!-- Submit button -->
     <div class="row">
       <div class="col s12 center-align">
+        <!-- cancel button -->
+         <a href="{{ url_for('add_books')}}" class="btn-large red text-shadow">Cancel</a>
         <button type="submit" class="btn-large" purple darken-1 text-shadow>
           Edit Book <i class="fas fa-edit right"></i>
         </button>

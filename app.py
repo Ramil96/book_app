@@ -115,7 +115,7 @@ def add_book():
 def edit_book(book_id):
     book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
     genres = mongo.db.genres.find().sort("book_genre", 1)
-    return render_template("add_book.html", book=book, genres=genres)
+    return render_template("edit_book.html", book=book, genres=genres)
 
 
 if __name__ == "__main__":
