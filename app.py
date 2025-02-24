@@ -130,6 +130,12 @@ def edit_book(book_id):
     genres = mongo.db.genres.find().sort("book_genre", 1)
     return render_template("edit_book.html", book=book, genres=genres)
 
+@app.route("/delete_book/<book_id>")
+def delete_book(book_id):
+    mongo.db.books.delete_one({"_id": ObjectId(book_id)})
+    flash("Book Successfully Deleted")
+    return redirect(url_for("add_books"))
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
