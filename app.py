@@ -151,9 +151,22 @@ def add_genre():
         }
         mongo.db.genres.insert_one(genre)
         flash("New Genre Added")
-        return redirect(url_for("get_genres"))
+        return redirect(url_for("get_genre"))
     
     return render_template("add_genre.html")
+
+
+@app.route("/edit_genre/<genre_id>", methods=["GET", "POST"])
+def edit_genre(genre_id):
+    if request.method == "POST":
+        submit = {
+            "book_genre": request.form.get("book_genre")
+        }
+        mongo.db.genres.update_one({"_id": ObjectId(genre_id)}, {"$set": submit})
+        flash("Genre Successfully Updated")
+        return redirect(url_for("get_genres"))
+    genre = mongo.db.genres.find_one({"_id": ObjectId(genre_id)})
+    return render_template("edit_genre.html", genre=genre)
 
 
 if __name__ == "__main__":
