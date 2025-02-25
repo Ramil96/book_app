@@ -151,7 +151,7 @@ def add_genre():
         }
         mongo.db.genres.insert_one(genre)
         flash("New Genre Added")
-        return redirect(url_for("get_genre"))
+        return redirect(url_for("get_genres"))
     
     return render_template("add_genre.html")
 
