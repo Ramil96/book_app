@@ -31,6 +31,16 @@
         <label for="book_name">Book Name</label>
       </div>
     </div>
+    <!-- Book Author -->
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="fa-solid fa-user prefix purple-text text-darken-4"></i>
+        <textarea id="book_author" name="book_author" minlength="5" maxlength="50"class="materialize-textarea validate" required>
+        {{- book.book_author -}}
+        </textarea>
+        <label for="book_author">Book Author</label>
+      </div>
+    </div>
     <!-- Book description -->
     <div class="row">
       <div class="input-field col s12">

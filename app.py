@@ -25,6 +25,13 @@ def add_books():
     return render_template("books.html", books=books)
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    books = list(mongo.db.books.find({"$text": {"$search": query}}))
+    return render_template("books.html", books=books)
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -100,6 +107,7 @@ def add_book():
             "book_genre": request.form.get("book_genre"),
             "book_name": request.form.get("book_name"),
             "book_description": request.form.get("book_description"),
+            "book_author": request.form.get("book_author"),
             "is_trending": is_trending,
             "publish_date": request.form.get("publish_date"),
             "created_by": session["user"]
@@ -119,6 +127,7 @@ def edit_book(book_id):
             "book_genre": request.form.get("book_genre"),
             "book_name": request.form.get("book_name"),
             "book_description": request.form.get("book_description"),
+            "book_author": request.form.get("book_author"),
             "is_trending": is_trending,
             "publish_date": request.form.get("publish_date"),
             "created_by": session["user"]
