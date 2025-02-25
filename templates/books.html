@@ -20,34 +20,38 @@
   </form>
 </div>
 
-<ul class="collapsible">
-  {% for book in books %}
-  <li>
-    <div class="collapsible-header white-text purple darken-4 text-shadow">
-      <div class="col s3">
-        <i class="fas fa-caret-down"></i>
-        {% if session.user|lower == book.created_by|lower %}
-        <a href="{{ url_for('delete_book', book_id=book._id) }}" class="btn-small red accent-4" onclick="return confirmDelete('{{ book.book_name }}');">Delete
-        <a href="{{ url_for('edit_book', book_id=book._id) }}" class="btn-small green accent-4" >Edit</a>
-        {% endif %}
+  {% if books|length > 0 %}
+  <ul class="collapsible">
+    {% for book in books %}
+    <li>
+      <div class="collapsible-header white-text purple darken-4 text-shadow">
+        <div class="col s3">
+          <i class="fas fa-caret-down"></i>
+          {% if session.user|lower == book.created_by|lower %}
+          <a href="{{ url_for('delete_book', book_id=book._id) }}" class="btn-small red accent-4" onclick="return confirmDelete('{{ book.book_name }}');">Delete
+          <a href="{{ url_for('edit_book', book_id=book._id) }}" class="btn-small green accent-4" >Edit</a>
+          {% endif %}
+        </div>
+        <div class="col s9">
+          <strong>{{ book.book_name }}</strong> : {{ book.publish_date }}
+          {% if book.is_trending == "on" %}
+          <i class="fas fa-exclamation-circle purple-text text-lighten-2 tooltipped" data-position="right"
+            data-tooltip="Trending"></i>
+          {% endif %}
+        </div>
       </div>
-      <div class="col s9">
-        <strong>{{ book.book_name }}</strong> : {{ book.publish_date }}
-        {% if book.is_trending == "on" %}
-        <i class="fas fa-exclamation-circle purple-text text-lighten-2 tooltipped" data-position="right"
-          data-tooltip="Trending"></i>
-        {% endif %}
+      <div class="collapsible-body">
+        <strong>{{ book.book_genre }}</strong>
+        <p>{{ book.book_author }}</p>
+        <p>{{ book.book_description }}</p>
+        <p><em>Added by: {{book.created_by}} </em></p>
       </div>
-    </div>
-    <div class="collapsible-body">
-      <strong>{{ book.book_genre }}</strong>
-      <p>{{ book.book_author }}</p>
-      <p>{{ book.book_description }}</p>
-      <p><em>Added by: {{book.created_by}} </em></p>
-    </div>
-  </li>
-  {% endfor %}
-</ul>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <h3 class="red-text text-darken-4 center-align">No Results Found</h3>
+  {% endif %}
 
 <script>
   function confirmDelete(bookName) {
