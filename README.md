@@ -66,6 +66,7 @@ To determine the best approach to this project, I began by identifying and under
 
 ## Structure Plane
 > To achieve the goals of the above the website will inclide login functionality to make use of all the database functions which offer full crud functionality.
+![Datamodel](static/images/datamodel.png)
 
 #### Home Page
 > Navigation with links consistent across all pages.
