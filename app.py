@@ -132,7 +132,7 @@ def edit_book(book_id):
             "publish_date": request.form.get("publish_date"),
             "created_by": session["user"]
         }
-        mongo.db.books.update({"_id": ObjectId(book_id)}, submit)
+        mongo.db.books.update_one({"_id": ObjectId(book_id)}, {"$set": submit})
         flash("Book Successfully Updated")
     
     book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
